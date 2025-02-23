@@ -1,23 +1,12 @@
 import { useState } from "react";
 import { CiMenuFries } from "react-icons/ci";
 import { RxCross2 } from "react-icons/rx";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { setAuth } from "../../redux/features/authSlice";
-import { IoMdLogOut } from "react-icons/io";
+import { Link, NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
-// import { AnimatePresence, motion } from "framer-motion";
 
-const MobileNav = ({ routs = [] }) => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { isLogin, user } = useSelector((state) => state.auth);
+const generalRouts = [{ name: "Home", path: "/" }];
 
-  const handleLogout = () => {
-    dispatch(setAuth({ token: null, user: {} }));
-    localStorage.clear();
-    navigate("/login");
-  };
+const MobileNav = () => {
 
   const [isActiv, setIsActiv] = useState(false);
   const navMenue = () => {
@@ -49,7 +38,7 @@ const MobileNav = ({ routs = [] }) => {
             <div className=" overflow-y-scroll text-white h-full">
               <div className=" ">
                 <div className="flex flex-col gap-4 justify-center items-center me-3 text-xl">
-                  {routs.map((item, index) => {
+                  {generalRouts.map((item, index) => {
                     return (
                       <NavLink
                         key={index}
@@ -83,7 +72,7 @@ const MobileNav = ({ routs = [] }) => {
 
             {/* Auth */}
 
-            <div className=" p-3 w-full bg-primary rounded-s ">
+            {/* <div className=" p-3 w-full bg-primary rounded-s ">
               {isLogin ? (
                 <span className=" flex justify-between items-center">
                   <span className=" text-[12px] text-accent">{user.role}</span>
@@ -97,7 +86,7 @@ const MobileNav = ({ routs = [] }) => {
                   <Link to="/register"> register </Link>
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ const MovieDetailsPage = () => {
       style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w200${data?.backdrop_path})` }}
       className=" mt-[72px] xl:mt-[94px] md:mt-[94px] h-screen bg-cover bg-no-repeat "
     >
-      <div className=" mx-auto p-12 w-full h-full  backdrop-blur-md overflow-y-scroll">
+      <div className=" mx-auto p-10 w-full h-full  backdrop-blur-md overflow-y-scroll">
         <div className=" container bg-black/75 xl:h-full md:h-full md:flex xl:flex  gap-8">
           <img
             className="m-auto pt-4 md:pt-0 xl:pt-0 md:m-0 xl:m-0"

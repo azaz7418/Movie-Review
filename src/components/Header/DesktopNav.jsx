@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
+const generalRouts = [{ name: "Home", path: "/" }];
 
-const DesktopNav = ({ routs = [] }) => {
+const DesktopNav = () => {
   return (
     <div>
       <div className="flex gap-5  text-white font-semibold">
         <div className="me-3 flex gap-5">
-          {routs.map((item, index) => {
+          {generalRouts.map((item, index) => {
             return (
               <NavLink
                 key={index}
@@ -26,8 +26,6 @@ const DesktopNav = ({ routs = [] }) => {
     </div>
   );
 };
-DesktopNav.propTypes = {
-  routs: PropTypes.array.isRequired,
-};
+
 
 export default DesktopNav;
