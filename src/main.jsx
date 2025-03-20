@@ -10,7 +10,6 @@ import MainLayout from "./layouts/MainLayout.jsx";
 import MovieDetailsPage from "./pages/Home/MovieDetailsPage.jsx";
 import Home from "./pages/Home/Home.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-// import { QueryClient, QueryClientProvider } from "react-query";
 
 axios.defaults.baseURL = "https://mess-metrics-server.vercel.app/api/v1";
 

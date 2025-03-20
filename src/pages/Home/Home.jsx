@@ -10,7 +10,6 @@ const Home = () => {
     queryKey: ["topic"],
     queryFn: () => getTopRatedMovie(),
   });
-  // console.log(data);
 
   if (isError) {
     Swal.fire({
@@ -23,7 +22,7 @@ const Home = () => {
     <div className="container mx-auto mt-28">
       <div>
         <div className=" mb-14 h-full px-10">
-          <MovieCarousel/>
+          <MovieCarousel />
         </div>
 
         <div className="text-xl font-bold text-black">Top Rated Movie</div>
@@ -36,7 +35,6 @@ const Home = () => {
                 style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w200${item.poster_path})` }}
                 className=" shadow-md relative bg-cover bg-no-repeat h-[370px]"
               >
-                {/* <img src={`https://image.tmdb.org/t/p/w200${item.poster_path}`} alt={item.title} /> */}
                 <div className=" absolute bottom-0 left-0 p-3 bg-black/50 w-full text-white">
                   <h2 className="text-lg font-semibold  ">{item?.title}</h2>
                   <p className="text-[#d62929]">Rating: {item?.vote_average?.toFixed(1)}</p>

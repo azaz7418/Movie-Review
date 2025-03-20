@@ -30,7 +30,6 @@ const PopularMovie = () => {
                 style={{ backgroundImage: `url(https://image.tmdb.org/t/p/w200${item.poster_path})` }}
                 className=" shadow-md relative bg-cover bg-no-repeat h-[370px]"
               >
-                {/* <img src={`https://image.tmdb.org/t/p/w200${item.poster_path}`} alt={item.title} /> */}
                 <div className=" absolute bottom-0 left-0 p-3 bg-black/50 w-full text-white">
                   <h2 className="text-lg font-semibold  ">{item?.title}</h2>
                   <p className="text-[#d62929]">Rating: {item?.vote_average?.toFixed(1)}</p>
