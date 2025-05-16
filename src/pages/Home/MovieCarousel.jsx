@@ -40,7 +40,7 @@ const MovieCarousel = () => {
         {data && data?.length > 0 ? (
           data?.map((movie, index) => (
             <div key={index} className="p-4">
-              <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="bg-primary rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
                 <img
                   src={
                     movie.poster_path
@@ -50,10 +50,10 @@ const MovieCarousel = () => {
                   alt={movie.title || "Movie Poster"}
                   className="w-full h-[500px] object-cover"
                 />
-                <div className="p-4 text-white">
+                <div className="p-4 text-neutral-50">
                   <h2 className="text-2xl font-semibold mb-2">{movie.title || "Untitled"}</h2>
                   <div className="flex items-center">
-                    <AiFillStar className="text-yellow-500 mr-1" />
+                    <AiFillStar className="text-accent mr-1" />
                     <span className="text-lg">{movie.vote_average || "N/A"}</span>
                   </div>
                 </div>
