@@ -13,7 +13,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import TVShows from "./pages/TVShows/TVShows.jsx";
 import TVShowDetailsPage from "./pages/TVShows/TVShowDetailsPage.jsx";
 import AllTVShows from "./pages/TVShows/AllTVShows.jsx";
-import AllMovies from "./pages/Home/AllMovies.jsx";
+// import AllMovies from "./pages/Home/AllMovies.jsx";
+import TVSearchPage from "./pages/TVShows/TVSearchPage.jsx";
+import TVSeasonPage from "./pages/TVShows/TVSeasonPage.jsx";
+import TVEpisodePage from "./pages/TVShows/TVEpisodePage.jsx";
 
 axios.defaults.baseURL = "https://mess-metrics-server.vercel.app/api/v1";
 
@@ -24,12 +27,15 @@ const router = createBrowserRouter(
     <Route path="/" element={<MainLayout />}>
       <Route path="/" element={<Home />} />
       <Route path="/movie/:id" element={<MovieDetailsPage />} />
-      <Route path="/movies/top-rated" element={<AllMovies type="top-rated" />} />
-      <Route path="/movies/popular" element={<AllMovies type="popular" />} />
       <Route path="/tv" element={<TVShows />} />
       <Route path="/tv/popular" element={<AllTVShows type="popular" />} />
       <Route path="/tv/top-rated" element={<AllTVShows type="top-rated" />} />
+      <Route path="/tv/airing-today" element={<AllTVShows type="airing-today" />} />
+      <Route path="/tv/on-the-air" element={<AllTVShows type="on-the-air" />} />
       <Route path="/tv/:id" element={<TVShowDetailsPage />} />
+      <Route path="/tv/:id/season/:seasonNumber" element={<TVSeasonPage />} />
+      <Route path="/tv/:id/season/:seasonNumber/episode/:episodeNumber" element={<TVEpisodePage />} />
+      <Route path="/tv/search" element={<TVSearchPage />} />
     </Route>
   )
 );

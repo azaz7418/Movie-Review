@@ -94,12 +94,64 @@ export const getTVShowReviews = async (id) => {
   const reviewData = data.results;
   return reviewData;
 };
-// export const getMovieList = async (params) => {
-//   const { data } = await axios.get(
-//     "https://api.themoviedb.org/3/genre/movie/list?api_key=6f106c6fda42414da47a5197031c3633",
-//     { params }
-//   );
-//   const allMovieList = data.results;
-//   // console.log(allMovieList);
-//   return allMovieList || {};
-// };
+
+// TV Series API Endpoints
+export const getAiringTodayTVShows = async (params) => {
+  const { data } = await axios.get(
+    "https://api.themoviedb.org/3/tv/airing_today?api_key=6f106c6fda42414da47a5197031c3633",
+    { params }
+  );
+  const tvShowList = data.results;
+  return tvShowList || {};
+};
+
+export const getOnTheAirTVShows = async (params) => {
+  const { data } = await axios.get(
+    "https://api.themoviedb.org/3/tv/on_the_air?api_key=6f106c6fda42414da47a5197031c3633",
+    { params }
+  );
+  const tvShowList = data.results;
+  return tvShowList || {};
+};
+
+export const getTVShowSeasonDetails = async (tvId, seasonNumber) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/tv/${tvId}/season/${seasonNumber}?api_key=6f106c6fda42414da47a5197031c3633`
+  );
+  return data;
+};
+
+export const getTVShowEpisodeDetails = async (tvId, seasonNumber, episodeNumber) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/tv/${tvId}/season/${seasonNumber}/episode/${episodeNumber}?api_key=6f106c6fda42414da47a5197031c3633`
+  );
+  return data;
+};
+
+export const searchTVShows = async (query) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/search/tv?api_key=6f106c6fda42414da47a5197031c3633&query=${encodeURIComponent(query)}`
+  );
+  return data.results || [];
+};
+
+export const getTVShowCredits = async (id) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/tv/${id}/credits?api_key=6f106c6fda42414da47a5197031c3633`
+  );
+  return data;
+};
+
+export const getSimilarTVShows = async (id) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/tv/${id}/similar?api_key=6f106c6fda42414da47a5197031c3633`
+  );
+  return data.results || [];
+};
+
+export const getTVShowVideos = async (id) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/tv/${id}/videos?api_key=6f106c6fda42414da47a5197031c3633`
+  );
+  return data.results || [];
+};
