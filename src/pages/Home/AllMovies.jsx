@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
-import { getTopRatedMovie, getPopularMovie } from "../../utils/utilitis";
+import { getTopRatedMovie, getPopularMovie, getNowPlaying } from "../../utils/utilitis";
 import { AiFillStar } from 'react-icons/ai';
 import { Spin } from 'antd';
 import Swal from "sweetalert2";
@@ -8,7 +9,16 @@ import Swal from "sweetalert2";
 const AllMovies = ({ type }) => {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["movies", type],
-    queryFn: () => type === "top-rated" ? getTopRatedMovie() : getPopularMovie(),
+    queryFn: () => {
+      switch(type) {
+        case "top-rated":
+          return getTopRatedMovie();
+        case "now-playing":
+          return getNowPlaying();
+        default:
+          return getPopularMovie();
+      }
+    }
   });
 
   if (isError) {
@@ -31,7 +41,9 @@ const AllMovies = ({ type }) => {
     <div className="min-h-screen bg-gradient-to-b from-primary-dark/95 to-primary">
       <div className="container mx-auto pt-24 px-4">
         <h1 className="text-3xl md:text-4xl font-bold text-accent mb-8">
-          {type === "top-rated" ? "Top Rated Movies" : "Popular Movies"}
+          {type === "top-rated" ? "Top Rated Movies" : 
+           type === "now-playing" ? "Now Playing Movies" : 
+           "Popular Movies"}
         </h1>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">

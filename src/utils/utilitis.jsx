@@ -155,3 +155,10 @@ export const getTVShowVideos = async (id) => {
   );
   return data.results || [];
 };
+
+export const searchMovies = async (query) => {
+  const { data } = await axios.get(
+    `https://api.themoviedb.org/3/search/movie?api_key=6f106c6fda42414da47a5197031c3633&query=${encodeURIComponent(query)}`
+  );
+  return data.results || [];
+};
