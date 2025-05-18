@@ -10,17 +10,32 @@ import { BsCalendarDate } from 'react-icons/bs';
 const MovieDetailsPage = () => {
   const { id } = useParams();
 
-  const { data, isError, error } = useQuery({
-    queryKey: ["topicDetails", id],
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["movieDetails", id], // Fixed query key
     queryFn: () => getSingleMovie(id),
+    enabled: !!id
   });
 
-  isError &&
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-primary-dark flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-accent"></div>
+      </div>
+    );
+  }
+
+  if (isError) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: error.response?.data?.message || "Error Happen",
+      text: error.message || "Failed to load movie details",
     });
+    return (
+      <div className="min-h-screen bg-primary-dark flex items-center justify-center text-accent">
+        Failed to load movie details
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-primary-dark">
@@ -93,20 +108,24 @@ const MovieDetailsPage = () => {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4">
-                <Link
-                  to={data?.homepage}
-                  className="flex items-center px-6 py-3 bg-accent hover:bg-accent-hover text-primary-dark font-semibold rounded-lg transition-colors"
-                >
-                  <BiCameraMovie className="mr-2" />
-                  Official Site
-                </Link>
-                <Link
-                  to="#review"
+                {data?.homepage && (
+                  <a
+                    href={data.homepage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center px-6 py-3 bg-accent hover:bg-accent-hover text-primary-dark font-semibold rounded-lg transition-colors"
+                  >
+                    <BiCameraMovie className="mr-2" />
+                    Official Site
+                  </a>
+                )}
+                <a
+                  href="#review"
                   className="flex items-center px-6 py-3 bg-secondary hover:bg-secondary-light text-white font-semibold rounded-lg transition-colors"
                 >
                   <AiFillStar className="mr-2" />
                   Write Review
-                </Link>
+                </a>
               </div>
             </div>
           </div>

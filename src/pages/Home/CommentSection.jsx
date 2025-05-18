@@ -17,6 +17,7 @@ const CommentSection = ({ id }) => {
     queryKey: ["comment", id],
     queryFn: () => getComment(id),
   });
+console.log(data);
 
   const reviewHandler = () => {
     if (!value.trim()) return;
@@ -68,7 +69,7 @@ const CommentSection = ({ id }) => {
         {/* Comments List */}
         <div className="space-y-6">
           {/* API Comments */}
-          {data?.map((item, index) => (
+          {data?.results?.map((item, index) => (
             <div 
               key={index} 
               className="bg-primary/50 rounded-lg p-6 transform hover:translate-x-1 transition-transform duration-200"

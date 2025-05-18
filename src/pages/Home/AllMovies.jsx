@@ -3,20 +3,24 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { getTopRatedMovie, getPopularMovie, getNowPlaying } from "../../utils/utilitis";
 import { AiFillStar } from 'react-icons/ai';
-import { Spin } from 'antd';
+import { Spin, Pagination } from 'antd';
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const AllMovies = ({ type }) => {
+  const [page, setPage] = useState(1);
+
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["movies", type],
+    queryKey: ["movies", type, page],
     queryFn: () => {
+      const params = { page };
       switch(type) {
         case "top-rated":
-          return getTopRatedMovie();
+          return getTopRatedMovie(params);
         case "now-playing":
-          return getNowPlaying();
+          return getNowPlaying(params);
         default:
-          return getPopularMovie();
+          return getPopularMovie(params);
       }
     }
   });
@@ -46,8 +50,8 @@ const AllMovies = ({ type }) => {
            "Popular Movies"}
         </h1>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {data?.map((movie) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-8">
+          {data?.results?.map((movie) => (
             <Link
               key={movie.id}
               to={`/movie/${movie.id}`}
@@ -80,6 +84,17 @@ const AllMovies = ({ type }) => {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="flex justify-center pb-8">
+          <Pagination
+            current={page}
+            total={data?.total_results}
+            pageSize={20} // TMDB API default page size
+            onChange={(newPage) => setPage(newPage)}
+            showSizeChanger={false}
+            className="text-accent"
+          />
         </div>
       </div>
     </div>

@@ -77,6 +77,7 @@ const TVSeasonPage = () => {
                   className="block bg-primary-dark/50 rounded-lg p-4 hover:bg-primary-dark transition-colors"
                 >
                   <div className="flex items-center justify-between">
+                    azaz
                     <div>
                       <h3 className="text-lg font-medium text-neutral-50 group-hover:text-accent transition-colors">
                         {episode.episode_number}. {episode.name}

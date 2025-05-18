@@ -2,13 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { getPopularTVShows, getTopRatedTVShows } from "../../utils/utilitis";
 import { AiFillStar } from 'react-icons/ai';
-import { Spin } from 'antd';
+import { Spin, Pagination } from 'antd';
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 const AllTVShows = ({ type }) => {
+  const [page, setPage] = useState(1);
+
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["tvshows", type],
-    queryFn: () => type === "top-rated" ? getTopRatedTVShows() : getPopularTVShows(),
+    queryKey: ["tvshows", type, page],
+    queryFn: () => {
+      const params = { page };
+      return type === "top-rated" ? getTopRatedTVShows(params) : getPopularTVShows(params);
+    }
   });
 
   if (isError) {
@@ -34,8 +40,8 @@ const AllTVShows = ({ type }) => {
           {type === "top-rated" ? "Top Rated TV Shows" : "Popular TV Shows"}
         </h1>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-          {data?.map((show) => (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-8">
+          {data?.results?.map((show) => (
             <Link
               key={show.id}
               to={`/tv/${show.id}`}
@@ -68,6 +74,17 @@ const AllTVShows = ({ type }) => {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="flex justify-center pb-8">
+          <Pagination
+            current={page}
+            total={data?.total_results}
+            pageSize={20} // TMDB API default page size
+            onChange={(newPage) => setPage(newPage)}
+            showSizeChanger={false}
+            className="text-accent"
+          />
         </div>
       </div>
     </div>

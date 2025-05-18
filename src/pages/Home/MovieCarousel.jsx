@@ -7,6 +7,7 @@ import { getNowPlaying } from "../../utils/utilitis";
 import { useQuery } from "@tanstack/react-query";
 import { Spin } from "antd";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MovieCarousel = () => {
   const settings = {
@@ -46,10 +47,18 @@ const MovieCarousel = () => {
     ],
   };
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["popular"],
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["nowPlaying"],
     queryFn: () => getNowPlaying(),
   });
+
+  if (isError) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: error.response?.data?.message || "Error loading movies",
+    });
+  }
 
   if (isLoading) {
     return (
@@ -59,11 +68,20 @@ const MovieCarousel = () => {
     );
   }
 
+  // Check if data and results exist
+  if (!data?.results || data.results.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-[600px] bg-primary-dark/50">
+        <p className="text-accent text-xl">No movies available</p>
+      </div>
+    );
+  }
+
   return (
     <div className="relative overflow-hidden rounded-2xl bg-primary-dark/50">
       <Slider {...settings}>
-        {data?.map((movie, index) => (
-          <div key={index} className="relative">
+        {data.results.map((movie) => ( // Changed from data?.map to data.results.map
+          <div key={movie.id} className="relative">
             {/* Backdrop Image */}
             <div className="relative h-[600px] w-full">
               <img

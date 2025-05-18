@@ -56,7 +56,7 @@ const TVShows = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {popularShows?.map((show) => (
+            {popularShows?.results?.map((show) => (
               <Link
                 key={show.id}
                 to={`/tv/${show.id}`}
@@ -102,7 +102,7 @@ const TVShows = () => {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-            {topRatedShows?.map((show) => (
+            {topRatedShows?.results?.map((show) => (
               <Link
                 key={show.id}
                 to={`/tv/${show.id}`}

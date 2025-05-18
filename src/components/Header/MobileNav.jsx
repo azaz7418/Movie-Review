@@ -1,102 +1,80 @@
-import { useState } from "react";
-import { CiMenuFries } from "react-icons/ci";
-import { RxCross2 } from "react-icons/rx";
-import { Link, NavLink } from "react-router-dom";
-import PropTypes from "prop-types";
-
-const generalRouts = [{ name: "Home", path: "/" }];
+import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { HiMenu, HiX } from 'react-icons/hi';
 
 const MobileNav = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-  const [isActiv, setIsActiv] = useState(false);
-  const navMenue = () => {
-    setIsActiv(!isActiv);
-  };
+  const navigationLinks = [
+    { name: "Home", path: "/" },
+    {
+      name: "Movies",
+      path: "/movies",
+      subMenu: [
+        { name: "Popular", path: "/movies/popular" },
+        { name: "Top Rated", path: "/movies/top-rated" },
+        { name: "Now Playing", path: "/movies/now-playing" }
+      ]
+    },
+    {
+      name: "TV Shows",
+      path: "/tv",
+      subMenu: [
+        { name: "Popular", path: "/tv/popular" },
+        { name: "Top Rated", path: "/tv/top-rated" },
+        { name: "Airing Today", path: "/tv/airing-today" },
+        { name: "On The Air", path: "/tv/on-the-air" }
+      ]
+    },
+    { name: "Search", path: "/search" }
+  ];
+
   return (
-    <nav className=" flex gap-8  ">
-      <div className={`${isActiv ? " block  w-full h-screen absolute right-0 top-0 " : " hidden"}`}>
-        <div className=" grid grid-flow-col grid-col-6 ">
-          <div onClick={navMenue} className=" col-span-2 bg-transparent z-50   "></div>
-          <div className=" col-span-4 flex flex-col z-50 bg-black bg-opacity-80 h-screen">
-            <div className=" flex justify-between items-center p-5">
-              {/* logo */}
-              <Link to="/">
-                {/* <h2 className=" text-xl font-semibold">
-                  Azaz<span className=" text-accent">.</span>
-                </h2> */}
-              </Link>
+    <div className="md:hidden">
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="p-2 text-neutral-50 hover:text-accent"
+      >
+        {isOpen ? <HiX className="w-6 h-6" /> : <HiMenu className="w-6 h-6" />}
+      </button>
 
-              <RxCross2 onClick={navMenue} className=" text-[25px]  text-accent" />
-            </div>
-            <Link className=" text-center mt-2 mb-5" to="/">
-              <h2 className=" text-4xl mt-4 text-white mb-10 font-semibold">
-                Logo<span className=" text-accent">.</span>
-              </h2>
-            </Link>
-
-            {/* menu */}
-            <div className=" overflow-y-scroll text-white h-full">
-              <div className=" ">
-                <div className="flex flex-col gap-4 justify-center items-center me-3 text-xl">
-                  {generalRouts.map((item, index) => {
-                    return (
+      {isOpen && (
+        <div className="absolute top-full left-0 right-0 bg-primary-dark/95 border-b border-secondary/10 py-4">
+          <div className="container mx-auto px-4">
+            {navigationLinks.map((item, index) => (
+              <div key={index} className="py-2">
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `block py-2 text-base ${isActive ? 'text-accent' : 'text-neutral-50'}`
+                  }
+                  onClick={() => setIsOpen(false)}
+                >
+                  {item.name}
+                </NavLink>
+                {item.subMenu && (
+                  <div className="pl-4 mt-1 space-y-1">
+                    {item.subMenu.map((subItem, subIndex) => (
                       <NavLink
-                        key={index}
-                        className={({ isActive }) => {
-                          return isActive
-                            ? " text-accent border-b-2 border-accent capitalize"
-                            : "  capitalize font-medium hover:text-accent transition-all";
-                        }}
-                        to={item.path}
+                        key={subIndex}
+                        to={subItem.path}
+                        className={({ isActive }) =>
+                          `block py-1.5 text-sm ${isActive ? 'text-accent' : 'text-neutral-50/80'}`
+                        }
+                        onClick={() => setIsOpen(false)}
                       >
-                        {item.name}
+                        {subItem.name}
                       </NavLink>
-                    );
-                  })}
-                </div>
-                {/* <div className="me-3 text-xl">
-                  <NavLink
-                    className={({ isActive }) => {
-                      return isActive
-                        ? " text-accent border-b-2 border-accent capitalize"
-                        : "  capitalize font-medium hover:text-accent transition-all";
-                    }}
-                    to="/topic"
-                  >
-                    {" "}
-                    topic{" "}
-                  </NavLink>
-                </div> */}
-              </div>
-            </div>
-
-            {/* Auth */}
-
-            {/* <div className=" p-3 w-full bg-primary rounded-s ">
-              {isLogin ? (
-                <span className=" flex justify-between items-center">
-                  <span className=" text-[12px] text-accent">{user.role}</span>
-                  <div>
-                    <IoMdLogOut onClick={handleLogout} className=" text-4xl font-semibold text-accent" />
+                    ))}
                   </div>
-                </span>
-              ) : (
-                <>
-                  <Link to="/login"> login </Link>
-                  <Link to="/register"> register </Link>
-                </>
-              )}
-            </div> */}
+                )}
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-
-      <CiMenuFries onClick={navMenue} className=" text-[32px] text-accent" />
-    </nav>
+      )}
+    </div>
   );
-};
-MobileNav.propTypes = {
-  routs: PropTypes.array.isRequired,
 };
 
 export default MobileNav;

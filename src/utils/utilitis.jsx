@@ -1,19 +1,11 @@
 import axios from "axios";
-// import Auth from "../components/Auth/Auth";
-
-// export const logOutHandler = (dispatch) => {
-//   dispatch(Auth({ token: "" }));
-
-//   localStorage.clear();
-// };
 
 export const getTopRatedMovie = async (params) => {
   const { data } = await axios.get(
     "https://api.themoviedb.org/3/movie/top_rated?api_key=6f106c6fda42414da47a5197031c3633",
     { params }
   );
-  const movieList = data.results;
-  return movieList || {};
+  return data;
 };
 
 export const getNowPlaying = async (params) => {
@@ -21,8 +13,7 @@ export const getNowPlaying = async (params) => {
     "https://api.themoviedb.org/3/movie/now_playing?api_key=6f106c6fda42414da47a5197031c3633",
     { params }
   );
-  const movieList = data.results;
-  return movieList || {};
+  return data;
 };
 
 export const getPopularMovie = async (params) => {
@@ -30,8 +21,7 @@ export const getPopularMovie = async (params) => {
     "https://api.themoviedb.org/3/movie/popular?api_key=6f106c6fda42414da47a5197031c3633",
     { params }
   );
-  const movieList = data.results;
-  return movieList || {};
+  return data;
 };
 
 export const getSingleMovie = async (id) => {
@@ -40,12 +30,12 @@ export const getSingleMovie = async (id) => {
   );
   return data;
 };
+
 export const getComment = async (id) => {
   const { data } = await axios.get(
     "https://api.themoviedb.org/3/movie/" + id + "/reviews?api_key=6f106c6fda42414da47a5197031c3633"
   );
-  const commentData = data.results;
-  return commentData;
+  return data;
 };
 
 export const filterReviewsById = (reviews, id) => {
@@ -57,9 +47,7 @@ export const getMovieList = async (params) => {
     "https://api.themoviedb.org/3/genre/movie/list?api_key=6f106c6fda42414da47a5197031c3633",
     { params }
   );
-  const allMovieList = data.results;
-  // console.log(allMovieList);
-  return allMovieList || {};
+  return data;
 };
 
 export const getPopularTVShows = async (params) => {
@@ -67,8 +55,7 @@ export const getPopularTVShows = async (params) => {
     "https://api.themoviedb.org/3/tv/popular?api_key=6f106c6fda42414da47a5197031c3633",
     { params }
   );
-  const tvShowList = data.results;
-  return tvShowList || {};
+  return data;
 };
 
 export const getTopRatedTVShows = async (params) => {
@@ -76,8 +63,7 @@ export const getTopRatedTVShows = async (params) => {
     "https://api.themoviedb.org/3/tv/top_rated?api_key=6f106c6fda42414da47a5197031c3633",
     { params }
   );
-  const tvShowList = data.results;
-  return tvShowList || {};
+  return data;
 };
 
 export const getSingleTVShow = async (id) => {
@@ -91,18 +77,15 @@ export const getTVShowReviews = async (id) => {
   const { data } = await axios.get(
     "https://api.themoviedb.org/3/tv/" + id + "/reviews?api_key=6f106c6fda42414da47a5197031c3633"
   );
-  const reviewData = data.results;
-  return reviewData;
+  return data;
 };
 
-// TV Series API Endpoints
 export const getAiringTodayTVShows = async (params) => {
   const { data } = await axios.get(
     "https://api.themoviedb.org/3/tv/airing_today?api_key=6f106c6fda42414da47a5197031c3633",
     { params }
   );
-  const tvShowList = data.results;
-  return tvShowList || {};
+  return data;
 };
 
 export const getOnTheAirTVShows = async (params) => {
@@ -110,8 +93,7 @@ export const getOnTheAirTVShows = async (params) => {
     "https://api.themoviedb.org/3/tv/on_the_air?api_key=6f106c6fda42414da47a5197031c3633",
     { params }
   );
-  const tvShowList = data.results;
-  return tvShowList || {};
+  return data;
 };
 
 export const getTVShowSeasonDetails = async (tvId, seasonNumber) => {
@@ -132,7 +114,7 @@ export const searchTVShows = async (query) => {
   const { data } = await axios.get(
     `https://api.themoviedb.org/3/search/tv?api_key=6f106c6fda42414da47a5197031c3633&query=${encodeURIComponent(query)}`
   );
-  return data.results || [];
+  return data;
 };
 
 export const getTVShowCredits = async (id) => {
@@ -146,19 +128,21 @@ export const getSimilarTVShows = async (id) => {
   const { data } = await axios.get(
     `https://api.themoviedb.org/3/tv/${id}/similar?api_key=6f106c6fda42414da47a5197031c3633`
   );
-  return data.results || [];
+  return data;
 };
 
 export const getTVShowVideos = async (id) => {
   const { data } = await axios.get(
     `https://api.themoviedb.org/3/tv/${id}/videos?api_key=6f106c6fda42414da47a5197031c3633`
   );
-  return data.results || [];
+  console.log( "azaz", data);
+  
+  return data;
 };
 
 export const searchMovies = async (query) => {
   const { data } = await axios.get(
     `https://api.themoviedb.org/3/search/movie?api_key=6f106c6fda42414da47a5197031c3633&query=${encodeURIComponent(query)}`
   );
-  return data.results || [];
+  return data;
 };

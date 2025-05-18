@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { getSingleTVShow } from "../../utils/utilitis";
 import CommentSection from "../Home/CommentSection";
@@ -10,17 +10,32 @@ import { BsCalendarDate } from 'react-icons/bs';
 const TVShowDetailsPage = () => {
   const { id } = useParams();
 
-  const { data, isError, error } = useQuery({
-    queryKey: ["topicDetails", id],
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["tvShowDetails", id], // Fixed query key
     queryFn: () => getSingleTVShow(id),
+    enabled: !!id
   });
 
-  isError &&
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-primary-dark flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-accent"></div>
+      </div>
+    );
+  }
+
+  if (isError) {
     Swal.fire({
       icon: "error",
       title: "Oops...",
-      text: error.response?.data?.message || "Error Happen",
+      text: error.message || "Failed to load TV show details",
     });
+    return (
+      <div className="min-h-screen bg-primary-dark flex items-center justify-center text-accent">
+        Failed to load TV show details
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-primary-dark">
@@ -93,13 +108,17 @@ const TVShowDetailsPage = () => {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-4">
-                <Link
-                  to={data?.homepage}
-                  className="flex items-center px-6 py-3 bg-accent hover:bg-accent-hover text-primary-dark font-semibold rounded-lg transition-colors"
-                >
-                  <BiCameraMovie className="mr-2" />
-                  Watch Now
-                </Link>
+                {data?.homepage && (
+                  <a
+                    href={data.homepage}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center px-6 py-3 bg-accent hover:bg-accent-hover text-primary-dark font-semibold rounded-lg transition-colors"
+                  >
+                    <BiCameraMovie className="mr-2" />
+                    Watch Now
+                  </a>
+                )}
               </div>
             </div>
           </div>
