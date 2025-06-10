@@ -7,25 +7,25 @@ import { Spin } from 'antd';
 
 const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchType, setSearchType] = useState('all'); // 'all', 'movies', 'tv'
+  const [searchType, setSearchType] = useState('all');
 
   const { data: movieResults, isLoading: moviesLoading } = useQuery({
     queryKey: ['searchMovies', searchQuery],
     queryFn: () => searchMovies(searchQuery),
     enabled: searchQuery !== '' && (searchType === 'all' || searchType === 'movies'),
-    select: (data) => data.results // Extract results from the response
+    select: (data) => data.results 
   });
 
   const { data: tvResults, isLoading: tvLoading } = useQuery({
     queryKey: ['searchTVShows', searchQuery],
     queryFn: () => searchTVShows(searchQuery),
     enabled: searchQuery !== '' && (searchType === 'all' || searchType === 'tv'),
-    select: (data) => data.results // Extract results from the response
+    select: (data) => data.results 
   });
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (searchQuery.trim() === '') return; // Prevent empty searches
+    if (searchQuery.trim() === '') return; 
   };
 
   const renderResults = (items, type) => {
