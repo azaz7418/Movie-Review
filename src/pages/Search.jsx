@@ -85,7 +85,7 @@ const Search = () => {
               <input
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value.trim())}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search for movies or TV shows..."
                 className="flex-1 px-4 py-2 rounded-lg bg-primary-dark/50 border border-accent/20 focus:border-accent text-neutral-50 placeholder-neutral-400 outline-none transition-all"
               />
