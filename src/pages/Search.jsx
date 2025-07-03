@@ -129,7 +129,7 @@ const Search = () => {
               (searchType === 'movies' && !movieResults?.length) ||
               (searchType === 'tv' && !tvResults?.length)) && (
               <p className="text-center text-neutral-400 my-12">
-                No results found for "{searchQuery}"
+                No results found for `{searchQuery}`
               </p>
             )}
           </div>
