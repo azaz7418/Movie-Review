@@ -22,6 +22,7 @@ import TVEpisodePage from "./pages/TVShows/TVEpisodePage.jsx";
 // import SignUp from "./pages/Home/SignUp.jsx";
 import SignIn from "./pages/Auth/SignIn.jsx";
 import SignUp from "./pages/Auth/SignUp.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
 axios.defaults.baseURL = "https://mess-metrics-server.vercel.app/api/v1";
 
@@ -47,6 +48,7 @@ const router = createBrowserRouter(
       <Route path="/movies/popular" element={<AllMovies type="popular" />} />
       <Route path="/movies/top-rated" element={<AllMovies type="top-rated" />} />
       <Route path="/movies/now-playing" element={<AllMovies type="now-playing" />} />
+      <Route path="*" element={<ErrorPage/>} />
     </Route>
   )
 );
