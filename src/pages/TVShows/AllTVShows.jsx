@@ -80,7 +80,7 @@ const AllTVShows = ({ type }) => {
           <Pagination
             current={page}
             total={data?.total_results}
-            pageSize={20} // TMDB API default page size
+            pageSize={20} 
             onChange={(newPage) => setPage(newPage)}
             showSizeChanger={false}
             className="text-accent"
